@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main_bg_activity">
+
+    <!-- 图片大小需要改变-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/main_image9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_mangzhong" />
+
+            <TextView
+                android:id="@+id/main_text9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image9"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="芒种"
+                android:textColor="#dddbdb"
+                android:textSize="30sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_xiazhi" />
+
+            <TextView
+                android:id="@+id/main_text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image10"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="夏至"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_xiaoshu" />
+
+            <TextView
+                android:id="@+id/main_text11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image11"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="小暑"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_dashu" />
+
+            <TextView
+                android:id="@+id/main_text12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image12"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="大暑"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- 图片大小需改变-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/main_image13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_liqiu" />
+
+            <TextView
+                android:id="@+id/main_text13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image13"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="立秋"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_chushu" />
+
+            <TextView
+                android:id="@+id/main_text14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image14"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="处暑"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_bailu" />
+
+            <TextView
+                android:id="@+id/main_text15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image15"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="白露"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/main_image16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_qiufen" />
+
+            <TextView
+                android:id="@+id/main_text16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/main_image16"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="秋分"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- 离底部的距离需改变-->
+    <TextView
+        android:id="@+id/main_page_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2/3"
+        android:textColor="#999797"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+</LinearLayout>
