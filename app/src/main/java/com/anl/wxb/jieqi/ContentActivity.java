@@ -1,11 +1,13 @@
 package com.anl.wxb.jieqi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -148,8 +150,8 @@ public class ContentActivity extends AnlActivity {
                     mTextViewHeight = content_text_right.getHeight();
                     mSeekBarHeight = content_btn_progress.getHeight();
                     int position = (int) Math.floor(100 - y * 100 / ((mTextViewHeight - mScrollHieght) * 10 / 10.0));
-                    if (position >92){
-                        position = 92 ;
+                    if (position > 92) {
+                        position = 92;
                     }
                     content_btn_progress.setProgress(position);
 
@@ -322,7 +324,9 @@ public class ContentActivity extends AnlActivity {
         actionbar_btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(count);
+                Intent intent = new Intent();
+                intent.putExtra("count",count);
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });
@@ -330,7 +334,9 @@ public class ContentActivity extends AnlActivity {
         actionbar_text_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(count);
+                Intent intent = new Intent();
+                intent.putExtra("count",count);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -342,14 +348,7 @@ public class ContentActivity extends AnlActivity {
             public void onClick(View v) {
                 content_scrollview.scrollTo(0, 0);
                 content_btn_progress.setProgress(91);
-//                if (count == 0) {
-////                    Toast.makeText(getApplicationContext(), "第一个节气", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    content_page_left.setVisibility(View.VISIBLE);
-//                    count--;
-//                    GetImage(count);
-//                    GetText("" + count);
-//                }
+
                 count--;
                 if(count == 0) {
                     content_page_left.setVisibility(View.INVISIBLE);
@@ -364,16 +363,7 @@ public class ContentActivity extends AnlActivity {
             public void onClick(View v) {
                 content_scrollview.scrollTo(0, 0);
                 content_btn_progress.setProgress(91);
-//                if (count == 23) {
-////                    Toast.makeText(getApplicationContext(), "最后个节气", Toast.LENGTH_SHORT).show();
-//                    content_page_right.setVisibility(View.INVISIBLE);
-//
-//                } else {
-//                    content_page_right.setVisibility(View.VISIBLE);
-//                    count++;
-//                    GetImage(count);
-//                    GetText("" + count);
-//                }
+
                 count++;
                 if(count == 23){
                     content_page_right.setVisibility(View.INVISIBLE);
@@ -385,5 +375,15 @@ public class ContentActivity extends AnlActivity {
         });
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            Intent intent = new Intent();
+            intent.putExtra("count",count);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
 
+        return super.onKeyDown(keyCode, event);
+    }
 }

@@ -763,108 +763,27 @@ public class MainActivity extends AnlActivity {
 //        若直接setCurrentItem(0/1/2),会导致current_Index不同步，点击左右翻页按钮产生bug
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        Log.e("onActivityResult_Q", String.valueOf(resultCode));
+
 //        Log.e("onActivityResult_S", String.valueOf(requestCode));
+//        Log.e("onActivityResult_Q", String.valueOf(resultCode));
 
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (resultCode) {
-            case 0:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
+            case RESULT_OK:
+                int num = data.getIntExtra("count",0);
+                if(num==0 || num==1 || num==2 || num==3 || num==4 || num==5 || num==6 || num==7){
+                    current_Index = 0;
+                    mviewpager.setCurrentItem(current_Index);
+                } else if(num==8 || num==9 || num==10 || num==11 || num==12 || num==13 || num==14 || num==15){
+                    current_Index = 0;
+                    mviewpager.setCurrentItem(current_Index);
+                }else if(num==16 || num==17 || num==18 || num==19 || num==20 || num==21 || num==22 || num==23){
+                    current_Index = 0;
+                    mviewpager.setCurrentItem(current_Index);
+                }
                 break;
-            case 1:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 2:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 3:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 4:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 5:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 6:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 7:
-                current_Index = 0;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 8:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 9:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 10:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 11:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 12:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 13:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 14:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 15:
-                current_Index = 1;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 16:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 17:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 18:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 19:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 20:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 21:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 22:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
-            case 23:
-                current_Index = 2;
-                mviewpager.setCurrentItem(current_Index);
-                break;
+//
             default:
                 break;
 
