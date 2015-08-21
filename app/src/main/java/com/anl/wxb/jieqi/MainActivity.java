@@ -126,6 +126,10 @@ public class MainActivity extends AnlActivity {
         super.onDestroy();
     }
 
+
+    /*
+    * name使用String类型的整数，因为rawQuery()第二个参数类型为String，整数适合左右翻页时的加减1
+    * */
         private void initWriteDate() {
         Db db = new Db(this);
         SQLiteDatabase dbwrite = db.getWritableDatabase();
@@ -419,7 +423,8 @@ public class MainActivity extends AnlActivity {
         }
 
         //        点击节气图，使用startActivityForResult()并传递参数
-//                  参数确定当前节气在哪个目录页面
+        //        参数确定点击的是第几个节气
+
         @Override
         public Object instantiateItem(View container, int position) {
 
@@ -431,13 +436,13 @@ public class MainActivity extends AnlActivity {
                         public void onClick(View v) {
                             //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            //用Bundle携带数据
-                            Bundle bundle = new Bundle();
-                            //传递name参数为tinyphp
-                            bundle.putString("name", "0");
-                            intent.putExtras(bundle);
+//                            //用Bundle携带数据
+//                            Bundle bundle = new Bundle();
+//                            //传递name参数为tinyphp
+//                            bundle.putString("name", "0");
+//                            intent.putExtras(bundle);
+                            intent.putExtra("name", "0");
                             startActivityForResult(intent, 0);
-//                            startActivity(intent);
                         }
                     });
 
@@ -446,11 +451,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "1");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "1");
                             startActivityForResult(intent, 1);
-//                            startActivity(intent);
                         }
                     });
 
@@ -459,11 +461,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "2");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "2");
                             startActivityForResult(intent, 2);
-//                            startActivity(intent);
                         }
                     });
 
@@ -472,11 +471,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "3");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "3");
                             startActivityForResult(intent, 3);
-//                            startActivity(intent);
                         }
                     });
 
@@ -485,11 +481,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "4");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "4");
                             startActivityForResult(intent, 4);
-//                            startActivity(intent);
                         }
                     });
 
@@ -498,11 +491,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "5");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "5");
                             startActivityForResult(intent, 5);
-//                            startActivity(intent);
                         }
                     });
 
@@ -511,11 +501,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "6");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "6");
                             startActivityForResult(intent, 6);
-//                            startActivity(intent);
                         }
                     });
 
@@ -524,11 +511,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "7");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "7");
                             startActivityForResult(intent, 7);
-//                            startActivity(intent);
                         }
                     });
 
@@ -539,11 +523,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "8");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "8");
                             startActivityForResult(intent, 8);
-//                            startActivity(intent);
                         }
                     });
 
@@ -552,11 +533,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "9");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "9");
                             startActivityForResult(intent, 9);
-//                            startActivity(intent);
                         }
                     });
 
@@ -565,11 +543,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "10");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "10");
                             startActivityForResult(intent, 10);
-//                            startActivity(intent);
                         }
                     });
 
@@ -578,11 +553,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "11");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "11");
                             startActivityForResult(intent, 11);
-//                            startActivity(intent);
                         }
                     });
 
@@ -591,11 +563,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "12");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "12");
                             startActivityForResult(intent, 12);
-//                            startActivity(intent);
                         }
                     });
 
@@ -604,11 +573,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "13");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "13");
                             startActivityForResult(intent, 13);
-//                            startActivity(intent);
                         }
                     });
 
@@ -617,11 +583,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "14");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "14");
                             startActivityForResult(intent, 14);
-//                            startActivity(intent);
                         }
                     });
 
@@ -630,11 +593,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "15");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "15");
                             startActivityForResult(intent, 15);
-//                            startActivity(intent);
                         }
                     });
 
@@ -646,11 +606,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "16");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "16");
                             startActivityForResult(intent, 16);
-//                            startActivity(intent);
                         }
                     });
 
@@ -659,11 +616,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "17");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "17");
                             startActivityForResult(intent, 17);
-//                            startActivity(intent);
                         }
                     });
 
@@ -672,11 +626,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "18");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "18");
                             startActivityForResult(intent, 18);
-//                            startActivity(intent);
                         }
                     });
 
@@ -685,11 +636,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "19");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "19");
                             startActivityForResult(intent, 19);
-//                            startActivity(intent);
                         }
                     });
 
@@ -698,11 +646,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "20");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "20");
                             startActivityForResult(intent, 20);
-//                            startActivity(intent);
                         }
                     });
 
@@ -711,11 +656,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "21");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "21");
                             startActivityForResult(intent, 21);
-//                            startActivity(intent);
                         }
                     });
 
@@ -724,11 +666,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "22");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name", "22");
                             startActivityForResult(intent, 22);
-//                            startActivity(intent);
                         }
                     });
 
@@ -737,11 +676,8 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putString("name", "23");
-                            intent.putExtras(bundle);
+                            intent.putExtra("name","23");
                             startActivityForResult(intent, 23);
-//                            startActivity(intent);
                         }
                     });
 
@@ -759,8 +695,9 @@ public class MainActivity extends AnlActivity {
 
     }
 
-    //    接受来自详解页面的数据resultCode,0-7页面设置current_Index=1,8-15页面current_index=2,16-23页面current_Index=3
-//        若直接setCurrentItem(0/1/2),会导致current_Index不同步，点击左右翻页按钮产生bug
+    //    num接受来自详解页面的数据data,0-7页面设置current_Index=1,8-15页面current_index=2,16-23页面current_Index=3
+
+        /*若直接setCurrentItem(0/1/2),会导致current_Index不同步，点击左右翻页按钮产生bug*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -776,10 +713,10 @@ public class MainActivity extends AnlActivity {
                     current_Index = 0;
                     mviewpager.setCurrentItem(current_Index);
                 } else if(num==8 || num==9 || num==10 || num==11 || num==12 || num==13 || num==14 || num==15){
-                    current_Index = 0;
+                    current_Index = 1;
                     mviewpager.setCurrentItem(current_Index);
                 }else if(num==16 || num==17 || num==18 || num==19 || num==20 || num==21 || num==22 || num==23){
-                    current_Index = 0;
+                    current_Index = 2;
                     mviewpager.setCurrentItem(current_Index);
                 }
                 break;

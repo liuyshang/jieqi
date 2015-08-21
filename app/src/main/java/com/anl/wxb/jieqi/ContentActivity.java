@@ -71,8 +71,6 @@ public class ContentActivity extends AnlActivity {
     //    Seekbar的高度
     float mSeekBarHeight = 0;
 
-    PowerManager.WakeLock wakeLock = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
