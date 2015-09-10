@@ -6,6 +6,7 @@ import android.database.Cursor;
 //import android.database.sqlite.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabase;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,8 @@ import com.anl.wxb.jieqi.widgets.VerticalSeekBar;
 import com.anl.base.annotation.view.ViewInject;
 
 import java.io.File;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by admin on 2015/8/7.
@@ -103,10 +106,19 @@ public class ContentActivity extends AnlActivity {
 //        解密数据库线程
         new Decrypt_Sqlite().execute();
 
+//      等待数据加载期间，显示Loading效果
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+
 //      等待数据库解密完成，1.8秒
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                pDialog.cancel();
                 getText(current_page);
                 getImage(count);
             }
