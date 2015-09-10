@@ -27,6 +27,7 @@ import com.anl.wxb.jieqi.R;
 import com.anl.base.AnlActivity;
 import com.anl.base.annotation.view.ViewInject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,7 @@ public class MainActivity extends AnlActivity {
     private int current_Index = 0;  //当前页面的编号
     LayoutInflater mInflater;
     MyPagerAdapter madapter;
+    private String path = "/data/data/com.anl.wxb.jieqi/databases/jieqi.db";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,13 @@ public class MainActivity extends AnlActivity {
         setContentView(R.layout.activity_main);
 
 //        Log.e("onCreate", String.valueOf(current_Index));
-        initWriteDate();
+        File file_jieqi = new File(path);
+        if(file_jieqi.exists()){
+            Log.i("onCreate","file exist");
+        } else {
+            initWriteDate();
+            Log.i("onCreate","file no exist");
+        }
 
         //     viewpager
         initPagerView();
