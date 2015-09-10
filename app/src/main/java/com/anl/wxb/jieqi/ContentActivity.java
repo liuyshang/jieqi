@@ -92,15 +92,17 @@ public class ContentActivity extends AnlActivity {
 
         SQLiteDatabase.loadLibs(this);
 //        db = new Db(this, "jieqi.db", null, 1);
-        db = new Db(this);
-        dbread = db.getReadableDatabase(password);
+//        db = new Db(this);
+//        dbread = db.getReadableDatabase(password);
+//        Log.i(TAG,"onCreate => dbread:" + dbread.toString());
 
         Bundle bundle = this.getIntent().getExtras();
         current_page = bundle.getString("name");
         count = Integer.parseInt(current_page);
 
-        handler_getImage();
         getText(current_page);
+        handler_getImage();
+
 //        new getText_AsyncTask().execute(current_page);
 
         initSlip();
@@ -204,17 +206,19 @@ public class ContentActivity extends AnlActivity {
 //            dbread = SQLiteDatabase.openOrCreateDatabase(file_jieqi,password,null);
 //            Log.i(TAG,"onCreate => getText => file_jieqi 存在");
 //        }
-
+        db = new Db(this);
+        dbread = db.getReadableDatabase(password);
+        Log.i(TAG,"onCreate => dbread:" + dbread.toString());
         Cursor cursor = dbread.rawQuery("select * from user where name=?", new String[]{current_page});
-        Log.i(TAG , "onCreate => getText => cursor:" + cursor);
+        Log.i(TAG , "onCreate => getText => cursor:" + cursor.toString());
 
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 5000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }, 5000);
 
         if (cursor.moveToFirst()) {
             String text = cursor.getString(cursor.getColumnIndex("text"));
