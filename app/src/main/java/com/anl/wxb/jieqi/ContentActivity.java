@@ -3,8 +3,12 @@ package com.anl.wxb.jieqi;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteDatabase;
+import net.sqlcipher.database.SQLiteDatabase;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -21,6 +25,8 @@ import com.anl.base.AnlActivity;
 
 import com.anl.wxb.jieqi.widgets.VerticalSeekBar;
 import com.anl.base.annotation.view.ViewInject;
+
+import java.io.File;
 
 /**
  * Created by admin on 2015/8/7.
@@ -71,24 +77,45 @@ public class ContentActivity extends AnlActivity {
     //    Seekbar的高度
     float mSeekBarHeight = 0;
 
+    private String TAG = "ContentActivity";
+
+    private String path = "/data/data/com.anl.wxb.jieqi/databases/jieqi.db";
+    private String password = "a";  //数据库加密密码
+    private Db db;
+    private SQLiteDatabase dbread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_2);
+        Log.i(TAG, "onCreate");
+
+        SQLiteDatabase.loadLibs(this);
+//        db = new Db(this, "jieqi.db", null, 1);
+        db = new Db(this);
+        dbread = db.getReadableDatabase(password);
 
         Bundle bundle = this.getIntent().getExtras();
         current_page = bundle.getString("name");
         count = Integer.parseInt(current_page);
 
-        GetImage(count);
-        GetText(current_page);
+        handler_getImage();
+        getText(current_page);
+//        new getText_AsyncTask().execute(current_page);
 
         initSlip();
         initClick();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
+
     //    ScrollView文本
     private void initSlip() {
+        Log.i(TAG, "onCreate => initSlip");
         //每次点击上，下按钮，5/6个SCrollView的高度
         content_btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,15 +144,14 @@ public class ContentActivity extends AnlActivity {
                     int Height = (int) ((100 - progress) * (mTextViewHeight - mScrollHieght) / 100);
                     content_scrollview.smoothScrollTo(0, Height);
 
-//                    Log.e("TAG_progress", String.valueOf(progress));
-//                    Log.e("TAG_textHeight", String.valueOf(content_text_right.getHeight()));
-//                    Log.e("TAG_seekbarHeight", String.valueOf(content_btn_progress.getHeight()));
-//                    Log.e("TAG_scrollHeight", String.valueOf(content_scrollview.getHeight()));
-//                    Log.e("TAG_scrollY", String.valueOf(content_scrollview.getScrollY()));
-//                    Log.e("TAG_scrollY/scrollH", String.valueOf(content_scrollview.getScrollY() / content_scrollview.getHeight()));
+//                    Log.i("TAG_progress", String.valueOf(progress));
+//                    Log.i("TAG_textHeight", String.valueOf(content_text_right.getHeight()));
+//                    Log.i("TAG_seekbarHeight", String.valueOf(content_btn_progress.getHeight()));
+//                    Log.i("TAG_scrollHeight", String.valueOf(content_scrollview.getHeight()));
+//                    Log.i("TAG_scrollY", String.valueOf(content_scrollview.getScrollY()));
+//                    Log.i("TAG_scrollY/scrollH", String.valueOf(content_scrollview.getScrollY() / content_scrollview.getHeight()));
                 }
             }
-
 
             @Override
             public void onStartTrackingTouch(VerticalSeekBar VerticalSeekBar) {
@@ -154,15 +180,15 @@ public class ContentActivity extends AnlActivity {
                     content_btn_progress.setProgress(position);
 
 //                    content_btn_progress.scrollTo(0, (int) (- y * mSeekBarHeight / (mTextViewHeight - mScrollHieght)));
-//                    Log.e("count", String.valueOf((y * mSeekBarHeight / (mTextViewHeight - mScrollHieght))));
-//                    Log.e("y", String.valueOf(y));
-//                    Log.e("mscrollY", String.valueOf(content_scrollview.getScrollY()));
-//                    Log.e("position", String.valueOf(position));
-//                    Log.e("mScrollHeight", String.valueOf(mScrollHieght));
-//                    Log.e("mTextViewHeight", String.valueOf(mTextViewHeight));
-//                    Log.e("cscrollY", String.valueOf(content_btn_progress.getScrollY()));
-//                    Log.e("cscrollX", String.valueOf(content_btn_progress.getScrollX()));
-//                    Log.e("mSeekBarHeight", String.valueOf(mSeekBarHeight));
+//                    Log.i("count", String.valueOf((y * mSeekBarHeight / (mTextViewHeight - mScrollHieght))));
+//                    Log.i("y", String.valueOf(y));
+//                    Log.i("mscrollY", String.valueOf(content_scrollview.getScrollY()));
+//                    Log.i("position", String.valueOf(position));
+//                    Log.i("mScrollHeight", String.valueOf(mScrollHieght));
+//                    Log.i("mTextViewHeight", String.valueOf(mTextViewHeight));
+//                    Log.i("cscrollY", String.valueOf(content_btn_progress.getScrollY()));
+//                    Log.i("cscrollX", String.valueOf(content_btn_progress.getScrollX()));
+//                    Log.i("mSeekBarHeight", String.valueOf(mSeekBarHeight));
                 }
 
             }
@@ -170,21 +196,49 @@ public class ContentActivity extends AnlActivity {
     }
 
     //获取文本内容
-    private void GetText(String current_page) {
-        Db db = new Db(this);
-        SQLiteDatabase dbread = db.getReadableDatabase();
+    private void getText(String current_page) {
+        Log.i(TAG, "onCreate => getText");
+
+//        File file_jieqi = new File(path);
+//        if(file_jieqi.exists()){
+//            dbread = SQLiteDatabase.openOrCreateDatabase(file_jieqi,password,null);
+//            Log.i(TAG,"onCreate => getText => file_jieqi 存在");
+//        }
+
         Cursor cursor = dbread.rawQuery("select * from user where name=?", new String[]{current_page});
+        Log.i(TAG , "onCreate => getText => cursor:" + cursor);
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }, 5000);
+
         if (cursor.moveToFirst()) {
             String text = cursor.getString(cursor.getColumnIndex("text"));
             content_text_left.setText(text);
+            Log.i(TAG,"onCreate => getText => text:" + text);
             String explain = cursor.getString(cursor.getColumnIndex("explain"));
             content_text_right.setText(explain);
+            Log.i(TAG, "onCreate => getText => explain:" + explain);
+
+            if(cursor != null){
+                cursor.close();
+                Log.i(TAG,"onCreate => getText => cursor close");
+            }
+        } else {
+            Log.i(TAG,"onCreate => getText => cursor no movo to first");
         }
-        dbread.close();
+//        dbread.close();
+//        db.close();
     }
 
     //获取图片
-    private void GetImage(int current_page) {
+    private void getImage(int current_page) {
+        Log.i(TAG, "onCreate => getImage");
+
         switch (current_page) {
             case 0:
                 content_image_text.setImageResource(R.drawable.text_lichun);
@@ -317,8 +371,22 @@ public class ContentActivity extends AnlActivity {
 
     }
 
+//    读取数据库数据延时太长，隔1秒加载图片
+    private void handler_getImage(){
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getImage(count);
+            }
+        }, 50);
+
+    }
+
     //左右翻页按钮的点击处理，actionbar两个返回按钮的点击处理，并传输count数据
     private void initClick() {
+        Log.i(TAG, "onCreate => initClick");
+
         actionbar_btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -333,7 +401,7 @@ public class ContentActivity extends AnlActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra("count",count);
+                intent.putExtra("count", count);
                 setResult(RESULT_OK, intent);
                 finish();
             }
@@ -348,12 +416,14 @@ public class ContentActivity extends AnlActivity {
                 content_btn_progress.setProgress(91);
 
                 count--;
-                if(count == 0) {
+                if (count == 0) {
                     content_page_left.setVisibility(View.INVISIBLE);
                 }
                 content_page_right.setVisibility(View.VISIBLE);
-                GetImage(count);
-                GetText("" + count);
+                handler_getImage();
+                current_page = "" + count;
+                getText(current_page);
+//                new getText_AsyncTask().execute(current_page);
             }
         });
         content_page_right.setOnClickListener(new View.OnClickListener() {
@@ -363,25 +433,73 @@ public class ContentActivity extends AnlActivity {
                 content_btn_progress.setProgress(91);
 
                 count++;
-                if(count == 23){
+                if (count == 23) {
                     content_page_right.setVisibility(View.INVISIBLE);
                 }
                 content_page_left.setVisibility(View.VISIBLE);
-                GetImage(count);
-                GetText("" + count);
+                handler_getImage();
+                current_page = "" + count;
+//                new getText_AsyncTask().execute(current_page);
+                getText("" + count);
             }
         });
+
     }
 
+//    点击硬件返回按钮，传递数据count
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.i(TAG, "onKeyDown");
+
         if(keyCode == KeyEvent.KEYCODE_BACK){
             Intent intent = new Intent();
             intent.putExtra("count",count);
             setResult(RESULT_OK, intent);
             finish();
         }
-
         return super.onKeyDown(keyCode, event);
     }
+
+//    读取数据库数据，放入线程
+//    private class getText_AsyncTask extends AsyncTask<String, Integer ,String>{
+//
+//        @Override
+//        protected String doInBackground(String... params) {
+//            Log.i(TAG,"getText_AsyncTask => doInBackground");
+//
+//            return params[0];
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String string) {
+//            Log.i(TAG, "getText_AsyncTask => onPostExcute");
+//
+//            File file_jieqi = new File(path);
+//            if(file_jieqi.exists()){
+//                dbread = SQLiteDatabase.openOrCreateDatabase(file_jieqi,password,null);
+//                Log.i(TAG,"getText_AsyncTask => onPostExcute => file_jieqi 存在");
+//            }
+//
+//            Cursor cursor = dbread.rawQuery("select * from user where name=?", new String[]{string});
+//            Log.i(TAG,"getText_AsyncTask => onPostExcute => Cursor open");
+//            //        dbread = db.getReadableDatabase(password);
+//            Log.i(TAG, "getText_AsyncTask => onPostExecute => current_page:" + string);
+//
+//            if (cursor.moveToFirst()) {
+//                String text = cursor.getString(cursor.getColumnIndex("text"));
+//                Log.i(TAG, "getText_AsyncTask => onPostExcute => text:" + text);
+//                content_text_left.setText(text);
+//                String explain = cursor.getString(cursor.getColumnIndex("explain"));
+//                Log.i(TAG, "getText_AsyncTask => onPostExcute => explain:" + explain);
+//                content_text_right.setText(explain);
+//                if (cursor != null) {
+//                    cursor.close();
+//                    Log.i(TAG, "getText_AsyncTask => onPostExcute => Cursor close");
+//                }
+//            } else {
+//                Log.i(TAG, "getText_AsyncTask => onPostExcute =>No MoveToFirst");
+//            }
+//            dbread.close();
+//        }
+//    }
 }
