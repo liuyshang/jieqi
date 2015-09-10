@@ -1,0 +1,2 @@
+1，SqLite数据使用SQLCipher加密  bug 1251
+2，等待加载数据时显示Loading效果
