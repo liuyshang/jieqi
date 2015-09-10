@@ -90,28 +90,39 @@ public class ContentActivity extends AnlActivity {
         setContentView(R.layout.activity_content_2);
         Log.i(TAG, "onCreate");
 
+//        加载.so文件
         SQLiteDatabase.loadLibs(this);
-//        db = new Db(this, "jieqi.db", null, 1);
-//        db = new Db(this);
-//        dbread = db.getReadableDatabase(password);
-//        Log.i(TAG,"onCreate => dbread:" + dbread.toString());
+//        打开数据库
+        db = new Db(this, "jieqi.db", null, 1);
 
+//        接受从MainActivity.java发送的数据
         Bundle bundle = this.getIntent().getExtras();
         current_page = bundle.getString("name");
         count = Integer.parseInt(current_page);
 
-        getText(current_page);
-        handler_getImage();
+//        解密数据库线程
+        new Decrypt_Sqlite().execute();
 
-//        new getText_AsyncTask().execute(current_page);
+//      等待数据库解密完成，1.8秒
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getText(current_page);
+                getImage(count);
+            }
+        }, 1800);
 
+//        scrollview 文本
         initSlip();
+//        按钮点击
         initClick();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        ContentActivity结束后关闭数据库
+        dbread.close();
         db.close();
     }
 
@@ -143,7 +154,7 @@ public class ContentActivity extends AnlActivity {
                     mScrollHieght = content_scrollview.getHeight();
                     mTextViewHeight = content_text_right.getHeight();
                     mSeekBarHeight = content_btn_progress.getHeight();
-                    int Height = (int) ((100 - progress) * (mTextViewHeight - mScrollHieght) / 100);
+                    int Height = (int) ((100 - progress) * (mTextViewHeight - mScrollHieght ) / 100);
                     content_scrollview.smoothScrollTo(0, Height);
 
 //                    Log.i("TAG_progress", String.valueOf(progress));
@@ -201,24 +212,8 @@ public class ContentActivity extends AnlActivity {
     private void getText(String current_page) {
         Log.i(TAG, "onCreate => getText");
 
-//        File file_jieqi = new File(path);
-//        if(file_jieqi.exists()){
-//            dbread = SQLiteDatabase.openOrCreateDatabase(file_jieqi,password,null);
-//            Log.i(TAG,"onCreate => getText => file_jieqi 存在");
-//        }
-        db = new Db(this);
-        dbread = db.getReadableDatabase(password);
-        Log.i(TAG,"onCreate => dbread:" + dbread.toString());
         Cursor cursor = dbread.rawQuery("select * from user where name=?", new String[]{current_page});
         Log.i(TAG , "onCreate => getText => cursor:" + cursor.toString());
-
-
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 5000);
 
         if (cursor.moveToFirst()) {
             String text = cursor.getString(cursor.getColumnIndex("text"));
@@ -235,8 +230,6 @@ public class ContentActivity extends AnlActivity {
         } else {
             Log.i(TAG,"onCreate => getText => cursor no movo to first");
         }
-//        dbread.close();
-//        db.close();
     }
 
     //获取图片
@@ -375,18 +368,6 @@ public class ContentActivity extends AnlActivity {
 
     }
 
-//    读取数据库数据延时太长，隔1秒加载图片
-    private void handler_getImage(){
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getImage(count);
-            }
-        }, 50);
-
-    }
-
     //左右翻页按钮的点击处理，actionbar两个返回按钮的点击处理，并传输count数据
     private void initClick() {
         Log.i(TAG, "onCreate => initClick");
@@ -424,10 +405,9 @@ public class ContentActivity extends AnlActivity {
                     content_page_left.setVisibility(View.INVISIBLE);
                 }
                 content_page_right.setVisibility(View.VISIBLE);
-                handler_getImage();
+                getImage(count);
                 current_page = "" + count;
                 getText(current_page);
-//                new getText_AsyncTask().execute(current_page);
             }
         });
         content_page_right.setOnClickListener(new View.OnClickListener() {
@@ -441,9 +421,8 @@ public class ContentActivity extends AnlActivity {
                     content_page_right.setVisibility(View.INVISIBLE);
                 }
                 content_page_left.setVisibility(View.VISIBLE);
-                handler_getImage();
+                getImage(count);
                 current_page = "" + count;
-//                new getText_AsyncTask().execute(current_page);
                 getText("" + count);
             }
         });
@@ -464,46 +443,12 @@ public class ContentActivity extends AnlActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-//    读取数据库数据，放入线程
-//    private class getText_AsyncTask extends AsyncTask<String, Integer ,String>{
-//
-//        @Override
-//        protected String doInBackground(String... params) {
-//            Log.i(TAG,"getText_AsyncTask => doInBackground");
-//
-//            return params[0];
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String string) {
-//            Log.i(TAG, "getText_AsyncTask => onPostExcute");
-//
-//            File file_jieqi = new File(path);
-//            if(file_jieqi.exists()){
-//                dbread = SQLiteDatabase.openOrCreateDatabase(file_jieqi,password,null);
-//                Log.i(TAG,"getText_AsyncTask => onPostExcute => file_jieqi 存在");
-//            }
-//
-//            Cursor cursor = dbread.rawQuery("select * from user where name=?", new String[]{string});
-//            Log.i(TAG,"getText_AsyncTask => onPostExcute => Cursor open");
-//            //        dbread = db.getReadableDatabase(password);
-//            Log.i(TAG, "getText_AsyncTask => onPostExecute => current_page:" + string);
-//
-//            if (cursor.moveToFirst()) {
-//                String text = cursor.getString(cursor.getColumnIndex("text"));
-//                Log.i(TAG, "getText_AsyncTask => onPostExcute => text:" + text);
-//                content_text_left.setText(text);
-//                String explain = cursor.getString(cursor.getColumnIndex("explain"));
-//                Log.i(TAG, "getText_AsyncTask => onPostExcute => explain:" + explain);
-//                content_text_right.setText(explain);
-//                if (cursor != null) {
-//                    cursor.close();
-//                    Log.i(TAG, "getText_AsyncTask => onPostExcute => Cursor close");
-//                }
-//            } else {
-//                Log.i(TAG, "getText_AsyncTask => onPostExcute =>No MoveToFirst");
-//            }
-//            dbread.close();
-//        }
-//    }
+    private class Decrypt_Sqlite extends AsyncTask{
+        @Override
+        protected Object doInBackground(Object[] params) {
+//          解密数据库
+            dbread = db.getReadableDatabase(password);
+            return null;
+        }
+    }
 }

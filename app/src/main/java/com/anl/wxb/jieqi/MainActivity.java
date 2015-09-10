@@ -122,14 +122,12 @@ public class MainActivity extends AnlActivity {
         Log.i(TAG, "onCreate");
 
         SQLiteDatabase.loadLibs(this);
-//        dbhelper = new Db(this, "jieqi.db", null, 1);
-//        dbhelper = new Db(this);
-//        dbwrite = dbhelper.getWritableDatabase(password);
-        
+
 //        如果jieqi.db不存在，则写数据到jieqi.db数据库
             if(!file_jieqi.exists()){
                 Log.i(TAG, "onCreate => file_jieqi不存在");
-                dbhelper = new Db(this);
+//                dbhelper = new Db(this);
+                dbhelper = new Db(this, "jieqi.db", null, 1);
                 dbwrite = dbhelper.getWritableDatabase(password);
                 new writeData_AsyncTask().execute();
             }else{

@@ -15,15 +15,15 @@ import net.sqlcipher.database.SQLiteDatabase.CursorFactory;
 public class Db extends SQLiteOpenHelper{
     private String TAG = "Db";
 
-    public Db(Context context) {
-        super(context, "jieqi.db", null , 1);
-        Log.i(TAG, "db");
-    }
-//    public Db(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-//        super(context, name, factory, version);
-//
+//    public Db(Context context) {
+//        super(context, "jieqi.db", null , 1);
 //        Log.i(TAG, "db");
 //    }
+    public Db(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
+
+        Log.i(TAG, "db");
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
