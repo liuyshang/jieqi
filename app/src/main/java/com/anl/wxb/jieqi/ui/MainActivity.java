@@ -1,17 +1,15 @@
-package com.anl.wxb.jieqi;
+package com.anl.wxb.jieqi.ui;
 
 //24节气思路：24个节气目录布局文件activity_main,使用ViewPager。每个ViewPager页面8个节气，点击跳转到单个节气详解页面，并传递参数
 //           每个节气详解页面两个更变的图片，两个可变的文本。图片，文本从SQLite中获取。详解文本放在ScrollView中，ScrollView与SeekBar同步
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 //import android.database.sqlite.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -25,9 +23,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.anl.wxb.jieqi.R;
 import com.anl.base.AnlActivity;
 import com.anl.base.annotation.view.ViewInject;
+import com.anl.wxb.jieqi.R;
+import com.anl.wxb.jieqi.db.Db;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,6 +34,7 @@ import java.util.List;
 
 
 public class MainActivity extends AnlActivity {
+    private final static String TAG = "MainActivity";
 
     @ViewInject(id = R.id.main_image1)
     ImageView main_image1;
@@ -100,17 +100,13 @@ public class MainActivity extends AnlActivity {
     @ViewInject(id = R.id.main_page_right)
     Button main_page_right;
 
-    private String TAG = "MainActivity";
-    //    ViewPager
     private ViewPager mviewpager; //页面内容
     private List<View> mlistviews;
     private int current_Index = 0;  //当前页面的编号
     LayoutInflater mInflater;
     MyPagerAdapter madapter;
-
     private String path = "/data/data/com.anl.wxb.jieqi/databases/jieqi.db";   //文件夹databases的路径
-//    File file_databases = new File(path);
-    File file_jieqi = new File(path );
+    File file_jieqi = new File(path);
     private String password = "a";  //数据库加密密码
     private SQLiteDatabase dbwrite;
     private Db dbhelper;
@@ -119,108 +115,22 @@ public class MainActivity extends AnlActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i(TAG, "onCreate");
-
         SQLiteDatabase.loadLibs(this);
-
-//        如果jieqi.db不存在，则写数据到jieqi.db数据库
-            if(!file_jieqi.exists()){
-                Log.i(TAG, "onCreate => file_jieqi不存在");
-//                dbhelper = new Db(this);
-                dbhelper = new Db(this, "jieqi.db", null, 1);
-                dbwrite = dbhelper.getWritableDatabase(password);
-                new writeData_AsyncTask().execute();
-            }else{
-                Log.i(TAG, "onCreate => file_jieqi存在");
-
-            }
-  
-//             viewpager
+        //如果jieqi.db不存在，则写数据到jieqi.db数据库
+        if (!file_jieqi.exists()) {
+            dbhelper = new Db(this, "jieqi.db", null, 1);
+            dbwrite = dbhelper.getWritableDatabase(password);
+            new writeData_AsyncTask().execute();
+        }
         initPagerView();
-        //     监听事件
-        initClick();
+        onClick();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy");
-    }
-
-    /*
-    * name使用String类型的整数，因为rawQuery()第二个参数类型为String，整数适合左右翻页时的加减1
-    * */
-//    private void initWriteDate() {
-//
-//    }
-
-//    actionbar_btn_back，actionbar_text_back，main_page_left，main_page_right 的监听
-    private void initClick() {
-        Log.i(TAG, "onCreate => initClick");
-
-        actionbar_btn_back = (ImageView) findViewById(R.id.actionbar_btn_back);
-        actionbar_text_back = (TextView) findViewById(R.id.actionbar_text_back);
-
-        actionbar_btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        actionbar_text_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-
-        });
-
-
-        main_page_left = (Button) findViewById(R.id.main_page_left);
-        main_page_right = (Button) findViewById(R.id.main_page_right);
-
-//        第一页左翻不处理,左翻按钮隐藏，最后一页右翻不处理,右翻按钮隐藏
-        main_page_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onCreate => initClick => main_page_left");
-//                main_page_left.setVisibility(View.VISIBLE);
-//                main_page_right.setVisibility(View.VISIBLE);
-                if (current_Index != 0) {
-                    current_Index--;
-//                    if(current_Index == 0){
-//                        main_page_left.setVisibility(View.INVISIBLE);
-//                    }
-                    Log.i(TAG, "onCreate => initClick => current_Index:" + String.valueOf(current_Index));
-                    mviewpager.setCurrentItem(current_Index);
-                }
-            }
-        });
-        main_page_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                main_page_right.setVisibility(View.VISIBLE);
-//                main_page_left.setVisibility(View.VISIBLE);
-                Log.i(TAG, "onCreate => initClick => main_page_right");
-                if (current_Index != 2) {
-                    current_Index++;
-//                    if(current_Index == 2){
-//                        main_page_right.setVisibility(View.INVISIBLE);
-//                    }
-                    Log.i(TAG, "onCreate => initClick => current_Index:" + String.valueOf(current_Index));
-                    mviewpager.setCurrentItem(current_Index);
-                }
-            }
-        });
-
-    }
-//
+    /**
+     * 初始化 pagerview
+     * */
     private void initPagerView() {
-        Log.i(TAG, "onCreate => initPagerView");
-//        main_page_left.setVisibility(View.INVISIBLE);
-
-//        绑定layout1_main,layout2_main,layout3_main,
+        //绑定layout1_main,layout2_main,layout3_main,
         mInflater = getLayoutInflater();
         mlistviews = new ArrayList<View>();
         mlistviews.add(mInflater.inflate(R.layout.layout1_main, null));
@@ -233,18 +143,54 @@ public class MainActivity extends AnlActivity {
         mviewpager.setCurrentItem(current_Index);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
+    /**
+     * 点击事件处理
+     * */
+    private void onClick() {
+        actionbar_btn_back = (ImageView) findViewById(R.id.actionbar_btn_back);
+        actionbar_text_back = (TextView) findViewById(R.id.actionbar_text_back);
+        main_page_left = (Button) findViewById(R.id.main_page_left);
+        main_page_right = (Button) findViewById(R.id.main_page_right);
+
+        actionbar_btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        actionbar_text_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+
+        });
+        //第一页左翻不处理,左翻按钮隐藏，最后一页右翻不处理,右翻按钮隐藏
+        main_page_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (current_Index != 0) {
+                    current_Index--;
+                    mviewpager.setCurrentItem(current_Index);
+                }
+            }
+        });
+        main_page_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onCreate => initClick => main_page_right");
+                if (current_Index != 2) {
+                    current_Index++;
+                    mviewpager.setCurrentItem(current_Index);
+                }
+            }
+        });
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Log.i(TAG, "onCreate => initPagerView => onOptionItemSelected");
-        Log.i(TAG, "onCreate => initPagerView => onOptionItemSelected:" + item);
-        return super.onOptionsItemSelected(item);
-    }
 
+    /**
+     * 适配器
+     * */
     private class MyPagerAdapter extends PagerAdapter {
         public List<View> ListViews;
         public View view1;
@@ -252,8 +198,6 @@ public class MainActivity extends AnlActivity {
         public View view3;
 
         public MyPagerAdapter(List<View> mlistviews) {
-            Log.i(TAG, "MyPagerAdapter");
-
             this.ListViews = mlistviews;
             view1 = mlistviews.get(0);
             view2 = mlistviews.get(1);
@@ -274,8 +218,6 @@ public class MainActivity extends AnlActivity {
         //        参数确定点击的是第几个节气
         @Override
         public Object instantiateItem(View container, int position) {
-            Log.i(TAG, "MyPagerAdapter => instantiateItem");
-
             switch (position) {
                 case 0:
                     main_image1 = (ImageView) ListViews.get(position).findViewById(R.id.main_image1);
@@ -284,11 +226,6 @@ public class MainActivity extends AnlActivity {
                         public void onClick(View v) {
                             //新建一个显式意图，第一个参数为当前Activity类对象，第二个参数为你要打开的Activity类
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-//                            //用Bundle携带数据
-//                            Bundle bundle = new Bundle();
-//                            //传递name参数为tinyphp
-//                            bundle.putString("name", "0");
-//                            intent.putExtras(bundle);
                             intent.putExtra("name", "0");
                             startActivityForResult(intent, 0);
                         }
@@ -521,7 +458,7 @@ public class MainActivity extends AnlActivity {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(MainActivity.this, ContentActivity.class);
-                            intent.putExtra("name","23");
+                            intent.putExtra("name", "23");
                             startActivityForResult(intent, 23);
                         }
                     });
@@ -529,8 +466,6 @@ public class MainActivity extends AnlActivity {
                 default:
                     break;
             }
-
-            Log.i(TAG, "MyPagerAdapter => instantiateItem => position:" + position);
 
             ((ViewPager) container).addView(ListViews.get(position));
             return ListViews.get(position);
@@ -542,26 +477,26 @@ public class MainActivity extends AnlActivity {
         }
     }
 
-    //    num接受来自详解页面的数据data,0-7页面设置current_Index=1,8-15页面current_index=2,16-23页面current_Index=3
 
-        /*若直接setCurrentItem(0/1/2),会导致current_Index不同步，点击左右翻页按钮产生bug*/
+    /**
+     * 接受从ContentActivity发送的数据
+     *
+     * num接受来自详解页面的数据data,0-7页面设置current_Index=1,8-15页面current_index=2,16-23页面current_Index=3
+     * 若直接setCurrentItem(0/1/2),会导致current_Index不同步，点击左右翻页按钮产生bug
+     * */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "onActivityResult");
-        Log.i(TAG, "onActivityResult => requestCode:" + String.valueOf(requestCode));
-        Log.i(TAG, "onActivityResult => requestCode:" + String.valueOf(resultCode));
-
         switch (resultCode) {
             case RESULT_OK:
-                int num = data.getIntExtra("count",0);
-                if(num==0 || num==1 || num==2 || num==3 || num==4 || num==5 || num==6 || num==7){
+                int num = data.getIntExtra("count", 0);
+                if (num == 0 || num == 1 || num == 2 || num == 3 || num == 4 || num == 5 || num == 6 || num == 7) {
                     current_Index = 0;
                     mviewpager.setCurrentItem(current_Index);
-                } else if(num==8 || num==9 || num==10 || num==11 || num==12 || num==13 || num==14 || num==15){
+                } else if (num == 8 || num == 9 || num == 10 || num == 11 || num == 12 || num == 13 || num == 14 || num == 15) {
                     current_Index = 1;
                     mviewpager.setCurrentItem(current_Index);
-                }else if(num==16 || num==17 || num==18 || num==19 || num==20 || num==21 || num==22 || num==23){
+                } else if (num == 16 || num == 17 || num == 18 || num == 19 || num == 20 || num == 21 || num == 22 || num == 23) {
                     current_Index = 2;
                     mviewpager.setCurrentItem(current_Index);
                 }
@@ -571,13 +506,13 @@ public class MainActivity extends AnlActivity {
         }
     }
 
-//    写入数据库耗时，放入线程内
+    /**
+     * 数据库写入数据 线程
+     * */
     private class writeData_AsyncTask extends AsyncTask {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            Log.i(TAG, "onPostExecute");
-
             ContentValues contentValues = new ContentValues();
 
             contentValues.put("name", "0");
@@ -762,6 +697,13 @@ public class MainActivity extends AnlActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy");
     }
 }
 

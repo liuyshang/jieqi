@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/RL_actionbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_actionbar">
+
+        <ImageView
+            android:id="@+id/actionbar_btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:src="@drawable/btn_back" />
+
+        <TextView
+            android:id="@+id/actionbar_text_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/actionbar_btn_back"
+            android:text="返回目录"
+            android:textColor="#d9b38d"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/actionbar_text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="24节气"
+            android:textColor="#d9b38d"
+            android:textSize="42sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/RL_actionbar"
+        android:background="@drawable/main_bg_activity">
+
+        <RelativeLayout
+            android:id="@+id/bg_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/content_bg_activity">
+
+            <RelativeLayout
+                android:id="@+id/RL_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:id="@+id/image_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/image_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/image_icon"
+                    android:layout_toRightOf="@id/image_icon" />
+
+                <com.anl.wxb.jieqi.widgets.MyScrollView
+                    android:layout_width="520dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/image_icon"
+                    android:layout_below="@id/image_icon"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="60dp">
+
+                    <com.anl.wxb.jieqi.widgets.JustifyTextView
+                        android:id="@+id/text_left"
+                        android:layout_width="520dp"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="15sp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="24sp" />
+
+                </com.anl.wxb.jieqi.widgets.MyScrollView>
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/center"
+                android:layout_width="2dp"
+                android:layout_height="fill_parent"
+                android:layout_centerHorizontal="true"
+                android:background="#ffcc0e26"
+                android:visibility="invisible" />
+
+            <RelativeLayout
+                android:id="@+id/RL_right"
+                android:layout_width="500dp"
+                android:layout_height="match_parent"
+                android:layout_alignLeft="@id/center"
+                android:layout_marginTop="50dp">
+
+                <TextView
+                    android:id="@+id/text_xiangjie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:text="节气详解"
+                    android:textColor="#0000ff"
+                    android:textSize="25sp" />
+
+                <com.anl.wxb.jieqi.widgets.MyScrollView
+                    android:id="@+id/scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignLeft="@id/text_xiangjie"
+                    android:layout_below="@id/text_xiangjie"
+                    android:layout_marginBottom="45dp"
+                    android:layout_marginTop="30dp"
+                    android:scrollbars="none">
+
+                    <com.anl.wxb.jieqi.widgets.JustifyTextView
+                        android:id="@+id/text_right"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:lineSpacingExtra="15sp"
+                        android:padding="5dp"
+                        android:text=""
+                        android:textColor="#333333"
+                        android:textSize="24sp" />
+
+                </com.anl.wxb.jieqi.widgets.MyScrollView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RL_progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@id/RL_right">
+
+                <ImageView
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="320dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/content_progress" />
+
+                <com.anl.wxb.jieqi.widgets.VerticalSeekBarWrapper
+                    android:id="@+id/seekBarContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="320dp"
+                    android:layout_marginTop="35dp">
+
+                    <com.anl.wxb.jieqi.widgets.VerticalSeekBar
+                        android:id="@+id/btn_progress"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:progressDrawable="@drawable/x_content_bar"
+                        android:thumb="@drawable/x_thumb_bar"
+                        app:seekBarRotation="CW90" />
+                </com.anl.wxb.jieqi.widgets.VerticalSeekBarWrapper>
+
+                <ImageView
+                    android:id="@+id/btn_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/seekBarContainer"
+                    android:src="@drawable/x_content_btn_up" />
+
+                <ImageView
+                    android:id="@+id/btn_down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_up"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/x_content_btn_down" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/page_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/x_page_left" />
+
+        <Button
+            android:id="@+id/page_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/x_page_right" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

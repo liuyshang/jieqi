@@ -1,4 +1,4 @@
-package com.anl.wxb.jieqi;
+package com.anl.wxb.jieqi.db;
 
 import android.content.Context;
 //import android.database.sqlite.SQLiteDatabase;

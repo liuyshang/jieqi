@@ -6,8 +6,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
 
-import com.anl.wxb.jieqi.ScrollViewListener;
-
 /**
  * Created by admin on 2015/8/13.
  */
@@ -41,5 +39,9 @@ public class MyScrollView extends ScrollView {
 
     public void setScrollViewListener(ScrollViewListener scrollViewListener) {
         this.scrollViewListener = scrollViewListener;
+    }
+
+    public interface ScrollViewListener {
+        void onScrollChanged(MyScrollView myScrollView, int x, int y, int oldx, int oldy);
     }
 }
