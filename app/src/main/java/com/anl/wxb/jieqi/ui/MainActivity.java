@@ -5,7 +5,6 @@ package com.anl.wxb.jieqi.ui;
 
 import android.content.ContentValues;
 import android.content.Intent;
-//import android.database.sqlite.SQLiteDatabase;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import android.os.AsyncTask;
@@ -14,8 +13,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;

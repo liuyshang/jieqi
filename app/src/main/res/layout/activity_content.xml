@@ -8,27 +8,35 @@
     <RelativeLayout
         android:id="@+id/RL_actionbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:background="@drawable/bg_actionbar">
 
-        <ImageView
-            android:id="@+id/actionbar_btn_back"
+        <RelativeLayout
+            android:id="@+id/RL_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="25dp"
-            android:src="@drawable/btn_back" />
+            android:layout_height="100dp"
+            android:layout_marginLeft="25dp">
 
-        <TextView
-            android:id="@+id/actionbar_text_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/actionbar_btn_back"
-            android:text="返回目录"
-            android:textColor="#d9b38d"
-            android:textSize="36sp" />
+            <ImageView
+                android:id="@+id/actionbar_btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_back" />
+
+            <TextView
+                android:id="@+id/actionbar_text_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/actionbar_btn_back"
+                android:text="返回目录"
+                android:textColor="#d9b38d"
+                android:textSize="36sp" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/actionbar_text_title"

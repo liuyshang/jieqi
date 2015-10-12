@@ -14,6 +14,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -34,16 +35,16 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class ContentActivity extends AnlActivity implements MyScrollView.ScrollViewListener, SeekBar.OnSeekBarChangeListener {
     private final static String TAG = "ContentActivity";
 
-    @ViewInject(id = R.id.actionbar_btn_back)
-    ImageView actionbar_btn_back;
-    @ViewInject(id = R.id.actionbar_text_back)
-    TextView actionbar_text_back;
+    @ViewInject(id = R.id.RL_back)
+    RelativeLayout RL_back;
     @ViewInject(id = R.id.actionbar_text_title)
     TextView actionbar_text_title;
     @ViewInject(id = R.id.page_left)
     Button page_left;
     @ViewInject(id = R.id.page_right)
     Button page_right;
+    @ViewInject(id = R.id.bg_activity)
+    RelativeLayout bg_activity;
     @ViewInject(id = R.id.text_left)
     JustifyTextView text_left;
     @ViewInject(id = R.id.scrollview)
@@ -85,18 +86,10 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
         Bundle bundle = this.getIntent().getExtras();
         current_page = bundle.getString("name");
         count = Integer.parseInt(current_page);
+        bg_activity.setVisibility(View.INVISIBLE);
+        showdialog();
         //解密数据库线程
         new Decrypt_Sqlite().execute();
-        showdialog();
-        //等待数据库解密完成，2秒
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pDialog.cancel();
-                getText(current_page);
-                getImage(count);
-            }
-        }, 2000);
         setListener();
         onClick();
     }
@@ -283,8 +276,6 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
             int height_scroll = scrollview.getHeight();
             int position_seekbar = progress * (height_text - height_scroll) / 100;
             scrollview.smoothScrollTo(0, position_seekbar);
-
-            Log.i(TAG, "position_seekbar:" + position_seekbar);
         }
     }
 
@@ -303,16 +294,11 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
      */
     @Override
     public void onScrollChanged(MyScrollView myScrollView, int x, int y, int oldx, int oldy) {
-        Log.i(TAG,"onScrollChanged");
         if (!scroll_falg) {
             int height_text = text_right.getHeight();
             int height_scroll = scrollview.getHeight();
             int position_scroll = y * 100 / (height_text - height_scroll);
             btn_progress.setProgress(position_scroll);
-
-            Log.i(TAG, "height_text:" + height_text);
-            Log.i(TAG, "height_scroll:" + height_scroll);
-            Log.i(TAG, "position_scroll:" + position_scroll);
         }
     }
 
@@ -337,16 +323,7 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
             }
         });
         /*actionbar 返回*/
-        actionbar_btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("count", count);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
-        actionbar_text_back.setOnClickListener(new View.OnClickListener() {
+        RL_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -391,7 +368,7 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
 
 
     /**
-     * 异步加密数据库
+     * 异步解密数据库
      */
     private class Decrypt_Sqlite extends AsyncTask {
         @Override
@@ -399,6 +376,15 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
             //解密数据库
             dbread = db.getReadableDatabase(password);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            pDialog.cancel();
+            bg_activity.setVisibility(View.VISIBLE);
+            getText(current_page);
+            getImage(count);
         }
     }
 
