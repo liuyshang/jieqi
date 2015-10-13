@@ -700,7 +700,6 @@ public class MainActivity extends AnlActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
     }
 }
 

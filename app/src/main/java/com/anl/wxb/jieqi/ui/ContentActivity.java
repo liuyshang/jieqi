@@ -270,7 +270,6 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        Log.i(TAG,"onProgressChanged");
         if (scroll_falg) {
             int height_text = text_right.getHeight();
             int height_scroll = scrollview.getHeight();

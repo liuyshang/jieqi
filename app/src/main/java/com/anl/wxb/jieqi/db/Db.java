@@ -14,7 +14,6 @@ public class Db extends SQLiteOpenHelper{
 
     public Db(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-        Log.i(TAG, "db");
     }
 
     @Override
