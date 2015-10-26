@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:text="廿四节气"
             android:textColor="#d9b38d"
-            android:textSize="42sp" />
+            android:textSize="36sp" />
 
     </RelativeLayout>
 
