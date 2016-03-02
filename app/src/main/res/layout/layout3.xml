@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/main_bg_activity">
+
+
+    <!-- 图片大小需要改变-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_hanlu" />
+
+            <TextView
+                android:id="@+id/main_text17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv17"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="寒露"
+                android:textColor="#dddbdb"
+                android:textSize="30sp"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_shuangjiang" />
+
+            <TextView
+                android:id="@+id/main_text18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv18"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="霜降"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_lidong" />
+
+            <TextView
+                android:id="@+id/main_text19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv19"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="立冬"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_xiaoxue" />
+
+            <TextView
+                android:id="@+id/main_text20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv20"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="小雪"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- 图片大小需改变-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_daxue" />
+
+            <TextView
+                android:id="@+id/main_text21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv21"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="大雪"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_dongzhi" />
+
+            <TextView
+                android:id="@+id/main_text22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv22"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="冬至"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_xiaohan" />
+
+            <TextView
+                android:id="@+id/main_text23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv23"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="小寒"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp">
+
+            <ImageView
+                android:id="@+id/iv24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_dahan" />
+
+            <TextView
+                android:id="@+id/main_text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv24"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:text="大寒"
+                android:textColor="#dddbdb"
+                android:textSize="30sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- 离底部的距离需改变-->
+    <TextView
+        android:id="@+id/main_page_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3/3"
+        android:textColor="#999797"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+</LinearLayout>
