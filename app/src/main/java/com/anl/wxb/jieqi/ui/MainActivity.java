@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -17,10 +21,13 @@ import com.anl.base.annotation.view.ViewInject;
 import com.anl.wxb.jieqi.R;
 import com.anl.wxb.jieqi.adapter.JieqiPagerAdapter;
 import com.anl.wxb.jieqi.db.Db;
+import com.anl.wxb.jieqi.view.FixedSpeedScroller;
+import com.anl.wxb.jieqi.view.ZoomOutPageTransformer;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,22 +35,22 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
 
     /**
      * 返回按钮
-     * */
+     */
     @ViewInject(id = R.id.rl_back)
     private RelativeLayout rlBack;
     /**
      * 左翻页按钮
-     * */
+     */
     @ViewInject(id = R.id.btn_page_left)
     private Button btnPageLeft;
     /**
      * 右翻页按钮
-     * */
+     */
     @ViewInject(id = R.id.btn_page_right)
     private Button btnPageRight;
     /**
      * ViewPager
-     * */
+     */
     @ViewInject(id = R.id.view_pager)
     private ViewPager viewPager;
 
@@ -51,12 +58,14 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
     private JieqiPagerAdapter madapter;
     private List<View> mlistviews = new ArrayList<>();
     private int current_Index = 0;  //当前页面的编号
-//    private String path = "/data/data/com.anl.wxb.jieqi/databases/jieqi.db";   //文件夹databases的路径
+    //    private String path = "/data/data/com.anl.wxb.jieqi/databases/jieqi.db";   //文件夹databases的路径
 //    private File file_jieqi = new File(path);
     private String password = "a";  //数据库加密密码
     private SQLiteDatabase dbwrite;
     private Db dbhelper;
     private Context mContext;
+    private Field mField;
+    private FixedSpeedScroller mScroller;
 
     /**
      * 点击事件处理
@@ -70,13 +79,13 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
             case R.id.btn_page_left:
                 if (current_Index != 0) {
                     current_Index--;
-                    viewPager.setCurrentItem(current_Index);
+                    viewPager.arrowScroll(1);
                 }
                 break;
             case R.id.btn_page_right:
                 if (current_Index != 2) {
                     current_Index++;
-                    viewPager.setCurrentItem(current_Index);
+                    viewPager.arrowScroll(2);
                 }
                 break;
             case R.id.iv1:
@@ -199,6 +208,18 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
         madapter = new JieqiPagerAdapter(mContext, mlistviews);
         viewPager.setAdapter(madapter);
         viewPager.setCurrentItem(current_Index);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+        try {
+            mField = ViewPager.class.getDeclaredField("mScroller");
+            mField.setAccessible(true);
+            mScroller = new FixedSpeedScroller(viewPager.getContext(), new LinearInterpolator());
+            mField.set(viewPager,mScroller);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -209,6 +230,7 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
     @Override
     public void onPageSelected(int position) {
         View view = mlistviews.get(position);
+        current_Index = position;
         switch (position) {
             case 0:
                 pageSelectedOne(view);
@@ -469,10 +491,10 @@ public class MainActivity extends AnlActivity implements ViewPager.OnPageChangeL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dbhelper != null){
+        if (dbhelper != null) {
             dbhelper.close();
         }
-        if (dbwrite != null){
+        if (dbwrite != null) {
             dbwrite.close();
         }
     }

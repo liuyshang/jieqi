@@ -13,7 +13,7 @@ import java.util.List;
  * time: 2016/3/1 14:15
  * e-mail: lance.cao@anarry.com
  */
-public class JieqiPagerAdapter extends PagerAdapter{
+public class JieqiPagerAdapter extends PagerAdapter {
 
     private Context context;
     private List<View> list = new ArrayList<>();
@@ -40,7 +40,7 @@ public class JieqiPagerAdapter extends PagerAdapter{
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object){
+    public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView(list.get(position));
     }
 }

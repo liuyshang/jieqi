@@ -1,4 +1,4 @@
-package com.anl.wxb.jieqi.widgets;
+package com.anl.wxb.jieqi.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;

@@ -84,7 +84,7 @@
                     android:layout_alignBottom="@id/iv_icon"
                     android:layout_toRightOf="@id/iv_icon" />
 
-                <com.anl.wxb.jieqi.widgets.MyScrollView
+                <com.anl.wxb.jieqi.view.MyScrollView
                     android:layout_width="520dp"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/iv_icon"
@@ -92,7 +92,7 @@
                     android:layout_marginBottom="45dp"
                     android:layout_marginTop="60dp">
 
-                    <com.anl.wxb.jieqi.widgets.JustifyTextView
+                    <com.anl.wxb.jieqi.view.JustifyTextView
                         android:id="@+id/tv_introduction"
                         android:layout_width="520dp"
                         android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                         android:textColor="#333333"
                         android:textSize="24sp" />
 
-                </com.anl.wxb.jieqi.widgets.MyScrollView>
+                </com.anl.wxb.jieqi.view.MyScrollView>
 
             </RelativeLayout>
 
@@ -128,7 +128,7 @@
                     android:textColor="#0000ff"
                     android:textSize="25sp" />
 
-                <com.anl.wxb.jieqi.widgets.MyScrollView
+                <com.anl.wxb.jieqi.view.MyScrollView
                     android:id="@+id/scrollview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -138,7 +138,7 @@
                     android:layout_marginTop="30dp"
                     android:scrollbars="none">
 
-                    <com.anl.wxb.jieqi.widgets.JustifyTextView
+                    <com.anl.wxb.jieqi.view.JustifyTextView
                         android:id="@+id/tv_detail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -149,7 +149,7 @@
                         android:textColor="#333333"
                         android:textSize="24sp" />
 
-                </com.anl.wxb.jieqi.widgets.MyScrollView>
+                </com.anl.wxb.jieqi.view.MyScrollView>
 
             </RelativeLayout>
 
@@ -167,13 +167,13 @@
                     android:layout_marginTop="35dp"
                     android:background="@drawable/content_progress" />
 
-                <com.anl.wxb.jieqi.widgets.VerticalSeekBarWrapper
+                <com.anl.wxb.jieqi.view.VerticalSeekBarWrapper
                     android:id="@+id/seekBarContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="320dp"
                     android:layout_marginTop="35dp">
 
-                    <com.anl.wxb.jieqi.widgets.VerticalSeekBar
+                    <com.anl.wxb.jieqi.view.VerticalSeekBar
                         android:id="@+id/btn_progress"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -181,7 +181,7 @@
                         android:thumb="@drawable/x_thumb_bar"
                         app:seekBarRotation="CW90" />
 
-                </com.anl.wxb.jieqi.widgets.VerticalSeekBarWrapper>
+                </com.anl.wxb.jieqi.view.VerticalSeekBarWrapper>
 
                 <ImageView
                     android:id="@+id/iv_up"

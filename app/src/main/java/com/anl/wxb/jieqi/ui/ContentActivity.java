@@ -1,5 +1,10 @@
 package com.anl.wxb.jieqi.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,9 +23,9 @@ import com.anl.base.AnlActivity;
 import com.anl.base.annotation.view.ViewInject;
 import com.anl.wxb.jieqi.R;
 import com.anl.wxb.jieqi.db.Db;
-import com.anl.wxb.jieqi.widgets.JustifyTextView;
-import com.anl.wxb.jieqi.widgets.MyScrollView;
-import com.anl.wxb.jieqi.widgets.VerticalSeekBar;
+import com.anl.wxb.jieqi.view.JustifyTextView;
+import com.anl.wxb.jieqi.view.MyScrollView;
+import com.anl.wxb.jieqi.view.VerticalSeekBar;
 
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -125,14 +130,49 @@ public class ContentActivity extends AnlActivity implements MyScrollView.ScrollV
                 scrollview.smoothScrollBy(0, (5 * (scrollview.getHeight()) / 6));
                 break;
             case R.id.btn_page_left:
-                pageLeft();
+                pageChange("left");
                 break;
             case R.id.btn_page_right:
-                pageRight();
+                pageChange("right");
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 翻页
+     * @param str
+     */
+    private void pageChange(final String str) {
+        AnimatorSet set = new AnimatorSet();
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(bgActivity, "alpha", 1.0f, 0.3f).setDuration(100);
+        anim1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                bgActivity.setAlpha((Float) animation.getAnimatedValue());
+            }
+        });
+        anim1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (str.equals("left")) {
+                    pageLeft();
+                } else if (str.equals("right")){
+                    pageRight();
+                }
+            }
+        });
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(bgActivity,"alpha",0.3f,1.0f).setDuration(400);
+        anim2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                bgActivity.setAlpha((Float) animation.getAnimatedValue());
+            }
+        });
+        set.playSequentially(anim1, anim2);
+        set.start();
     }
 
     @Override
