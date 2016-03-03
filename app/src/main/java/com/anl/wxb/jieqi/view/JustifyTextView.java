@@ -1,4 +1,4 @@
-package com.anl.wxb.jieqi.widgets;
+package com.anl.wxb.jieqi.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

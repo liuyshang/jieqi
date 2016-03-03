@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--二十四节气介绍，每页8个节气显示-->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg_activity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/main_bg_activity">
 
     <!-- 图片大小需要改变-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:layout_gravity="center_horizontal">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/main_image1"
+                android:id="@+id/iv9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_lichun" />
+                android:src="@drawable/image_mangzhong" />
 
             <TextView
-                android:id="@+id/main_text1"
+                android:id="@+id/main_text9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image1"
+                android:layout_below="@id/iv9"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="立春"
+                android:text="芒种"
                 android:textColor="#dddbdb"
                 android:textSize="30sp"/>
 
@@ -45,19 +42,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image2"
+                android:id="@+id/iv10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_yushui" />
+                android:src="@drawable/image_xiazhi" />
 
             <TextView
-                android:id="@+id/main_text2"
+                android:id="@+id/main_text10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image2"
+                android:layout_below="@id/iv10"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="雨水"
+                android:text="夏至"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -69,19 +66,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image3"
+                android:id="@+id/iv11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_jingzhe" />
+                android:src="@drawable/image_xiaoshu" />
 
             <TextView
-                android:id="@+id/main_text3"
+                android:id="@+id/main_text11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image3"
+                android:layout_below="@id/iv11"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="惊蛰"
+                android:text="小暑"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -93,19 +90,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image4"
+                android:id="@+id/iv12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_chunfen" />
+                android:src="@drawable/image_dashu" />
 
             <TextView
-                android:id="@+id/main_text4"
+                android:id="@+id/main_text12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image4"
+                android:layout_below="@id/iv12"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="春分"
+                android:text="大暑"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -117,28 +114,28 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/main_image5"
+                android:id="@+id/iv13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_qingming" />
+                android:src="@drawable/image_liqiu" />
 
             <TextView
-                android:id="@+id/main_text5"
+                android:id="@+id/main_text13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image5"
+                android:layout_below="@id/iv13"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="清明"
+                android:text="立秋"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -150,19 +147,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image6"
+                android:id="@+id/iv14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_guyu" />
+                android:src="@drawable/image_chushu" />
 
             <TextView
-                android:id="@+id/main_text6"
+                android:id="@+id/main_text14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image6"
+                android:layout_below="@id/iv14"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="谷雨"
+                android:text="处暑"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -174,19 +171,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image7"
+                android:id="@+id/iv15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_lixia" />
+                android:src="@drawable/image_bailu" />
 
             <TextView
-                android:id="@+id/main_text7"
+                android:id="@+id/main_text15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image7"
+                android:layout_below="@id/iv15"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="立夏"
+                android:text="白露"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -198,19 +195,19 @@
             android:layout_marginLeft="60dp">
 
             <ImageView
-                android:id="@+id/main_image8"
+                android:id="@+id/iv16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/image_xiaoman" />
+                android:src="@drawable/image_qiufen" />
 
             <TextView
-                android:id="@+id/main_text8"
+                android:id="@+id/main_text16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/main_image8"
+                android:layout_below="@id/iv16"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:text="小满"
+                android:text="秋分"
                 android:textColor="#dddbdb"
                 android:textSize="30sp" />
 
@@ -223,11 +220,9 @@
         android:id="@+id/main_page_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1/3"
+        android:text="2/3"
         android:textColor="#999797"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
-
-
 </LinearLayout>
